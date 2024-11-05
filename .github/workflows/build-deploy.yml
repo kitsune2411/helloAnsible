@@ -23,4 +23,4 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./dist/*"
-          target: "/home/${{ secrets.SERVER_USER }}/myapp/"
+          target: "/home/${{ secrets.SERVER_USER }}/{{ vars.APP_NAME }}/"
