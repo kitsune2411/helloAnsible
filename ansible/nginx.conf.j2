@@ -7,6 +7,9 @@ server {
         ssl_certificate /etc/ssl/certs/{{ app_name }}.pem;
         ssl_certificate_key /etc/ssl/private/{{ app_name }}.key;
 
+        access_log /var/log/nginx/{{ app_name }}.access.log;
+        error_log /var/log/nginx/{{ app_name }}.error.log;
+
         root {{ web_root }}/dist;
         index index.html;
 
