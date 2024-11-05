@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
           source: ${{ vars.APP_NAME }}.pem
-          target: "/home/${{ secrets.SERVER_USER }}/ssl/${{ vars.APP_NAME }}.pem"
+          target: "/home/${{ secrets.SERVER_USER }}/ssl/"
 
       - name: Upload SSL key to temp directory
         uses: appleboy/scp-action@v0.1.4
@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
           source: ${{ vars.APP_NAME }}.key
-          target: "/home/${{ secrets.SERVER_USER }}/ssl/${{ vars.APP_NAME }}.key"
+          target: "/home/${{ secrets.SERVER_USER }}/ssl/"
 
       - name: Move SSL certificate and SSL key to correct directory
         uses: appleboy/ssh-action@master
