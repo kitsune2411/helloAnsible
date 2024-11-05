@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key_path: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "./ansible/*"
+          source: "ansible/*"
           target: "/home/${{ secrets.SERVER_USER }}/ansible/"
 
       - name: Setup Ansible on server
