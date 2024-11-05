@@ -55,8 +55,8 @@ jobs:
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            sudo mv /home/${{ secrets.SERVER_USER }}/ssl/${{ vars.APP_NAME }}.pem /etc/ssl/certs/${{ vars.APP_NAME }}.pem
-            sudo mv /home/${{ secrets.SERVER_USER }}/ssl/${{ vars.APP_NAME }}.key /etc/ssl/private/${{ vars.APP_NAME }}.key
+            sudo mv /home/${{ secrets.SERVER_USER }}/ssl/${{ vars.APP_NAME }}.pem /etc/ssl/certs/
+            sudo mv /home/${{ secrets.SERVER_USER }}/ssl/${{ vars.APP_NAME }}.key /etc/ssl/private/
 
       - name: Change SSL certificate and SSL key permission
         uses: appleboy/ssh-action@master
