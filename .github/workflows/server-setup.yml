@@ -30,7 +30,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
           port: ${{ secrets.SSH_PORT }}
-          source: "ansible/*"
+          source: "ansible/playbook.yml"
           target: "/home/${{ secrets.SERVER_USER }}/ansible/"
 
       - name: Setup Ansible on server
