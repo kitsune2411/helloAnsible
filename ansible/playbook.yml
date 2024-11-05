@@ -35,20 +35,6 @@
         mode: '0755'
         recurse: yes
 
-    - name: Copy SSL certificate
-      copy:
-        content: "{{ lookup('env', 'SSL_CERT') }}"
-        dest: "/etc/ssl/{{ app_name }}.pem"
-        mode: '0644'
-      notify: restart nginx
-
-    - name: Copy SSL key
-      copy:
-        content: "{{ lookup('env', 'SSL_KEY') }}"
-        dest: "/etc/ssl/{{ app_name }}.key"
-        mode: '0600'
-      notify: restart nginx
-
     - name: Configure NGINX
       template:
         src: nginx.conf.j2
