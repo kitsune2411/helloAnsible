@@ -1,0 +1,54 @@
+- hosts: webserver
+  become: yes
+  vars:
+    web_root: "/home/{{ ansible_user }}/myapp"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present
+
+    - name: Create web root directory
+      file:
+        path: "{{ web_root }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Copy SSL certificate
+      copy:
+        content: "{{ lookup('env', 'SSL_CERT') }}"
+        dest: "/etc/ssl/certs/myapp.pem"
+        mode: '0644'
+      notify: restart nginx
+
+    - name: Copy SSL key
+      copy:
+        content: "{{ lookup('env', 'SSL_KEY') }}"
+        dest: "/etc/ssl/private/myapp.key"
+        mode: '0600'
+      notify: restart nginx
+
+    - name: Configure NGINX
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-available/myapp
+      notify: restart nginx
+
+    - name: Enable NGINX site
+      file:
+        src: /etc/nginx/sites-available/myapp
+        dest: /etc/nginx/sites-enabled/myapp
+        state: link
+      notify: restart nginx
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
