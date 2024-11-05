@@ -1,5 +1,6 @@
-- hosts: webserver
-  become: yes
+- hosts: localhost
+  gather_facts: false
+  become: true
   vars:
     web_root: "/home/{{ ansible_user }}/myapp"
 
