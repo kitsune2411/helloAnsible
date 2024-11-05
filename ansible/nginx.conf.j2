@@ -1,13 +1,16 @@
 server {
-       listen 80;
-       listen [::]:80;
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
 
-       server_name {{ server_name }};
+        server_name {{ server_name }};
 
-       root {{ web_root }}/dist;
-       index index.html;
+        ssl_certificate /etc/ssl/certs/{{ app_name }}.pem;
+        ssl_certificate_key /etc/ssl/private/{{ app_name }}.key;
 
-       location / {
-               try_files $uri $uri/ =404;
-       }
+        root {{ web_root }}/dist;
+        index index.html;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
 }
