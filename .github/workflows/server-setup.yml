@@ -14,27 +14,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Update apt cache
-        run: sudo apt update -y
-
-      - name: Install Ansible
-        run: sudo apt install -y ansible
-
       - name: Upload Ansible playbook to server
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key_path: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           source: "./ansible/*"
           target: "/home/${{ secrets.SERVER_USER }}/ansible/"
+
+      - name: Setup Ansible on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key_path: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            sudo apt update -y
+            sudo apt install -y ansible
 
       - name: Trigger Ansible Playbook
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key_path: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
             cd /home/${{ secrets.SERVER_USER }}/ansible
             ansible-playbook -i "$SERVER_HOST," -u "$SERVER_USER" deploy.yml
