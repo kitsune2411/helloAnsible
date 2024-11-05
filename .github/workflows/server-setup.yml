@@ -31,7 +31,7 @@ jobs:
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
           port: ${{ secrets.SSH_PORT }}
           source: "ansible/playbook.yml"
-          target: "/home/${{ secrets.SERVER_USER }}/ansible/"
+          target: "/home/${{ secrets.SERVER_USER }}/"
 
       - name: Setup Ansible on server
         uses: appleboy/ssh-action@master
