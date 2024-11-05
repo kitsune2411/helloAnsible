@@ -28,7 +28,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          key_path: ${{ secrets.SSH_PRIVATE_KEY }}
+          key_path: ${{ env.SSH_KEY_FILE_NAME }}
           port: ${{ secrets.SSH_PORT }}
           source: "ansible/*"
           target: "/home/${{ secrets.SERVER_USER }}/ansible/"
