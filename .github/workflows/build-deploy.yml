@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 
 env:
+  app_name: "{{ APP_NAME }}"
   SSH_KEY_FILE_NAME: "id_rsa"
 
 jobs:
@@ -29,4 +30,4 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
           source: "./dist/*"
-          target: "/home/${{ secrets.SERVER_USER }}/{{ vars.APP_NAME }}/"
+          target: "/home/${{ secrets.SERVER_USER }}/{{ env.APP_NAME }}/"
