@@ -29,5 +29,5 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
-          source: "./dist/*"
+          source: "./dist"
           target: "/home/${{ secrets.SERVER_USER }}/${{ env.APP_NAME }}/"
