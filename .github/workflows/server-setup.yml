@@ -52,7 +52,7 @@ jobs:
           key_path: ${{ env.SSH_KEY_FILE_NAME }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            export SSL_CERT=$(cat "${{ secrets.SSL_CERT }}")
-            export SSL_KEY=$(cat "${{ secrets.SSL_KEY }}")
             cd /home/${{ secrets.SERVER_USER }}/ansible
-            ansible-playbook -i "${{ secrets.SERVER_HOST }}," -u "${{ secrets.SERVER_USER }}" playbook.yml --extra-vars "app_name=${{ vars.APP_NAME }} server_name=${{ secrets.SERVER_NAME }}"
+            ansible-playbook -i "${{ secrets.SERVER_HOST }}," -u "${{ secrets.SERVER_USER }}" playbook.yml \
+            --extra-vars "app_name=${{ vars.APP_NAME }} server_name=${{ secrets.SERVER_NAME }}" \
+            "SSL_CERT=${{ secrets.SSL_CERT }}" "SSL_KEY=${{ secrets.SSL_KEY }}"
