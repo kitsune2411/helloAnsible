@@ -2,9 +2,9 @@ server {
        listen 80;
        listen [::]:80;
 
-       server_name agungkristiawan.my.id;
+       server_name {{ app_name }};
 
-       root /var/www/hrmsanur.my.id;
+       root {{ web_root }};
        index index.html;
 
        location / {
