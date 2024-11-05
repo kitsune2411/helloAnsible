@@ -53,4 +53,4 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /home/${{ secrets.SERVER_USER }}/ansible
-            ansible-playbook -i "${{ secrets.SERVER_HOST }}," -u "${{ secrets.SERVER_USER }}" playbook.yml --extra-vars "app_name=${{ vars.APP_NAME }}
+            ansible-playbook -i "${{ secrets.SERVER_HOST }}," -u "${{ secrets.SERVER_USER }}" playbook.yml --extra-vars "app_name=${{ vars.APP_NAME }}"
