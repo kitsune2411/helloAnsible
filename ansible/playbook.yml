@@ -63,7 +63,17 @@
       notify: restart nginx
 
   handlers:
+    - name: debug before restart
+      debug:
+        msg: "Attempting to restart NGINX"
+
     - name: restart nginx
       service:
         name: nginx
         state: restarted
+      register: nginx_restart_result
+      failed_when: nginx_restart_result is failed
+
+    - name: debug after restart
+      debug:
+        msg: "NGINX restart result: {{ nginx_restart_result }}"
