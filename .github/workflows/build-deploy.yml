@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  app_name: "{{ APP_NAME }}"
+  app_name: "{{ vars.APP_NAME }}"
   SSH_KEY_FILE_NAME: "id_rsa"
 
 jobs:
