@@ -33,7 +33,7 @@
       file:
         path: "{{ web_root }}"
         mode: '0755'
-        recourse: yes
+        recurse: yes
 
     - name: Copy SSL certificate
       copy:
