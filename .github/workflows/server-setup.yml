@@ -29,9 +29,6 @@ jobs:
           target: "/home/${{ secrets.SERVER_USER }}/ansible/"
 
       - name: Trigger Ansible Playbook
-        env:
-          SSL_CERT: ${{ secrets.SSL_CERT }}
-          SSL_KEY: ${{ secrets.SSL_KEY }}
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SERVER_HOST }}
