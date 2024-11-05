@@ -38,14 +38,14 @@
     - name: Copy SSL certificate
       copy:
         content: "{{ lookup('env', 'SSL_CERT') }}"
-        dest: "/etc/ssl/certs/{{ app_name }}.pem"
+        dest: "/etc/ssl/{{ app_name }}.pem"
         mode: '0644'
       notify: restart nginx
 
     - name: Copy SSL key
       copy:
         content: "{{ lookup('env', 'SSL_KEY') }}"
-        dest: "/etc/ssl/private/{{ app_name }}.key"
+        dest: "/etc/ssl/{{ app_name }}.key"
         mode: '0600'
       notify: restart nginx
 
