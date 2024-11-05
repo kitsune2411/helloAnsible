@@ -7,12 +7,21 @@ on:
       - "ansible/**"
       - "nginx.conf.j2"
 
+env:
+  SSH_KEY_FILE_NAME: "id_rsa"
+
 jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Store SSH key
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ${{ env.SSH_KEY_FILE_NAME }}
+
+      - name: Change SSH key permission
+        run: chmod 444 ${{ env.SSH_KEY_FILE_NAME }}
 
       - name: Upload Ansible playbook to server
         uses: appleboy/scp-action@v0.1.4
