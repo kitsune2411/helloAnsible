@@ -2,7 +2,8 @@
   gather_facts: false
   become: true
   vars:
-    web_root: "/home/{{ ansible_user }}/myapp"
+    app_name: "{{ app_name }}"
+    web_root: "/home/{{ ansible_user }}/{{ app_name }}"
 
   tasks:
     - name: Update apt cache
@@ -24,27 +25,27 @@
     - name: Copy SSL certificate
       copy:
         content: "{{ lookup('env', 'SSL_CERT') }}"
-        dest: "/etc/ssl/certs/myapp.pem"
+        dest: "/etc/ssl/certs/{{ app_name }}.pem"
         mode: '0644'
       notify: restart nginx
 
     - name: Copy SSL key
       copy:
         content: "{{ lookup('env', 'SSL_KEY') }}"
-        dest: "/etc/ssl/private/myapp.key"
+        dest: "/etc/ssl/private/{{ app_name }}.key"
         mode: '0600'
       notify: restart nginx
 
     - name: Configure NGINX
       template:
         src: nginx.conf.j2
-        dest: /etc/nginx/sites-available/myapp
+        dest: /etc/nginx/sites-available/{{ app_name }}
       notify: restart nginx
 
     - name: Enable NGINX site
       file:
-        src: /etc/nginx/sites-available/myapp
-        dest: /etc/nginx/sites-enabled/myapp
+        src: /etc/nginx/sites-available/{{ app_name }}
+        dest: /etc/nginx/sites-enabled/{{ app_name }}
         state: link
       notify: restart nginx
 
