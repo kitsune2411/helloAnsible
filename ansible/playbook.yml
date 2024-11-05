@@ -3,6 +3,7 @@
   become: true
   vars:
     app_name: "{{ app_name }}"
+    server_name: "{{ server_name }}"
     web_root: "/home/{{ ansible_user }}/{{ app_name }}"
 
   tasks:
