@@ -39,27 +39,25 @@
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-available/{{ app_name }}
-      notify: restart nginx
+      notify: test nginx config
 
     - name: Enable NGINX site
       file:
         src: /etc/nginx/sites-available/{{ app_name }}
         dest: /etc/nginx/sites-enabled/{{ app_name }}
         state: link
-      notify: restart nginx
+      notify: test nginx config
 
   handlers:
-    - name: debug before restart
-      debug:
-        msg: "Attempting to restart NGINX"
+    - name: test nginx config
+      command: nginx -t
+      register: nginx_test_result
+      failed_when: nginx_test_result.rc != 0
+      notify: reload nginx
 
-    - name: restart nginx
+    - name: reload nginx
       service:
         name: nginx
-        state: restarted
-      register: nginx_restart_result
-      failed_when: nginx_restart_result is failed
-
-    - name: debug after restart
-      debug:
-        msg: "NGINX restart result: {{ nginx_restart_result }}"
+        state: reloaded
+      register: nginx_reload_result
+      failed_when: nginx_reload_result is failed
