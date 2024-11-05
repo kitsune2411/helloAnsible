@@ -14,10 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Ansible
-        run:
-          sudo apt update
-          sudo apt install -y ansible
+      - name: Update apt cache
+        run: sudo apt update -y
+
+      - name: Install Ansible
+        run: sudo apt install -y ansible
 
       - name: Upload Ansible playbook to server
         uses: appleboy/scp-action@v0.1.4
